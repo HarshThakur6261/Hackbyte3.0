@@ -1,19 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import "./App.css";
+import MobileHome from "./pages/MobileHome";
+import DesktopHome from "./pages/DesktopHome";
+import DesktopLogin from "./pages/DesktopLogin";
+
+import MobileLogin from "./pages/MobileLogin";
+
+import { AuthProvider, useAuth } from "./context/AuthContext";
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const ProtectedRoute = ({ children }) => {
+    const { token } = useAuth();
+    const location = useLocation();
+
+    if (!token) {
+      return <Navigate to="/login" 
+      // state={{ from: location }} 
+       />;
+    }
+    return children;
+  };
+
+  const ResponsiveHome = () => (isMobile ? <MobileHome /> : <DesktopHome />);
+  const ResponsiveLogin = () => (isMobile ? <MobileLogin /> : <DesktopLogin />);
 
   return (
-    <>
-      <div className='text-yellow-200'>
+  
+      <AuthProvider>
+    
+        <Router>
+          <div className="app">
+            <Routes>
+              <Route path="/login" element={<ResponsiveLogin />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <ResponsiveHome />
+                  </ProtectedRoute>
+                }
+              />
+             
+              
+              
 
 
-      </div>
-    </>
-  )
+
+              {/* Add more routes as needed */}
+            </Routes>
+          </div>
+        </Router>
+ 
+      </AuthProvider>
+    
+   
+   
+  );
 }
 
-export default App
+export default App;
