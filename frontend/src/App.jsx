@@ -7,13 +7,13 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
-import MobileHome from "./pages/MobileHome";
-import DesktopHome from "./pages/DesktopHome";
+
+
 import DesktopLogin from "./pages/DesktopLogin";
 
 import MobileLogin from "./pages/MobileLogin";
 
-import { AuthProvider, useAuth } from "./context/AuthContext";
+
 
 
 
