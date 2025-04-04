@@ -1,0 +1,160 @@
+.mobile-login {
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #080b1a;
+}
+
+.mobile-login__hero-image {
+  width: 100%;
+  height: auto;
+  max-height: 668px;
+  object-fit: cover;
+}
+
+.mobile-login__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 49px;
+  padding: 39px 27px;
+  margin-top: -347px;
+  background-color: #080b1a;
+}
+
+.mobile-login__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 47px;
+  width: 100%;
+  max-width: 462px;
+}
+
+.mobile-login__welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+}
+
+.mobile-login__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  background: -webkit-linear-gradient(
+    180deg,
+    #8A2387 0%,
+    #E94057 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  width: 100%;
+}
+
+.mobile-login__subtitle {
+  color: #fff;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.mobile-login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 31px;
+  width: 100%;
+  padding: 17px 10px;
+  border-radius: 30px;
+  background: url("https://cdn.builder.io/api/v1/image/assets/TEMP/0073a0f0a63a588187ab53ee0ca061dd00527382")
+    lightgray 50% / cover no-repeat;
+}
+
+.mobile-login__google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 49px;
+  padding: 13px 71px;
+  width: 100%;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-login__google-icon {
+  width: 21px;
+  height: 21px;
+}
+
+.mobile-login__google-text {
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.mobile-login__terms {
+  color: #fff;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.mobile-login__footer {
+  color: #ececec;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+@media (max-width: 991px) {
+  .mobile-login__container {
+    padding: 20px;
+  }
+
+  .mobile-login__google-button {
+    padding: 13px 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-login__content {
+    padding: 20px 15px;
+    margin-top: -200px;
+  }
+
+  .mobile-login__title {
+    font-size: 22px;
+  }
+
+  .mobile-login__subtitle {
+    font-size: 15px;
+  }
+
+  .mobile-login__google-button {
+    padding: 13px 30px;
+    font-size: 15px;
+  }
+
+  .mobile-login__terms {
+    font-size: 13px;
+  }
+
+  .mobile-login__footer {
+    font-size: 12px;
+  }
+}
