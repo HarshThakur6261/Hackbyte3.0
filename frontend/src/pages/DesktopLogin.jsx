@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/DesktopLogin.css";
-import { useGoogleAuth } from "../utils/useGoogleAuth";
-import { useAuth } from "../context/AuthContext";
+
 
 const DesktopLogin = () => {
   const navigate = useNavigate();
