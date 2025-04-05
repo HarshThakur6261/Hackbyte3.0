@@ -19,11 +19,17 @@ app.use(cors());
 // Import Routes
 const userData = require("./Routes/userData.js");
 const challengeData = require("./Routes/challengeData");
+const ActiveChallengeRouter = require("./Routes/ActiveChallengeRouter");
+const Historyrouter = require("./Routes/History");
 
 
 // Use Routes
 app.use("/api/users", userData);
 app.use("/api/challenges", challengeData);
+app.use("/ActiveChallenge", ActiveChallengeRouter);
+
+app.use("/history" , Historyrouter)
+
 
 
 
