@@ -67,13 +67,13 @@ const ChallengeSection = ({ userData }) => {
           }
         }
       );
-      setRecommendations(response.data.recommendations);
+      setRecommendationData(response.data);
     } catch (error) {
-      console.error("Error fetching recommendations:", error);
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-        console.error("Response status:", error.response.status);
-      }
+      console.error("Error details:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
     } finally {
       setLoading(false);
     }
@@ -84,7 +84,7 @@ const ChallengeSection = ({ userData }) => {
     if (userData) {
       fetchRecommendations();
     }
-  }, []);
+  },[userData]);
 
   // Combine all challenges with AI recommendations marked
   const getAllChallenges = () => {
@@ -154,13 +154,12 @@ const ChallengeSection = ({ userData }) => {
       <div className="StepsStrengthCombo mb-8">
         <div className="tab-container">
           <div className="tab-nav">
-            {/* <button
+            <button
               className={`tab-button ${activeTab === 'all' ? 'active' : ''}`}
               onClick={() => setActiveTab('all')}
             >
               All
-            </button> */}
-
+            </button>
             <button
               className={`tab-button ${activeTab === 'steps' ? 'active' : ''}`}
               onClick={() => setActiveTab('steps')}

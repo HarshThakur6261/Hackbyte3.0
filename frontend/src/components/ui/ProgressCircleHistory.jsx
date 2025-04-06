@@ -19,8 +19,8 @@ const ProgressCircle = ({ exercise, handlecompleteExercise }) => {
 
   // Dynamic color based on progress
   const getProgressColor = () => {
-    if (progressPercentage < 0.3) return "#FF3B30"; // Red (low progress)
-    if (progressPercentage < 0.7) return "#FF9500"; // Orange (medium progress)
+    if (progressPercentage < 0.6) return "#FF3B30"; // Red (low progress)
+    if (progressPercentage < 0.9) return "#FF9500"; // Orange (medium progress)
     return "#4CD964"; // Green (high progress)
   };
 
