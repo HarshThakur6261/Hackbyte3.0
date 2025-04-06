@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChallengeCard from "./ChallengeCard";
 import "../styles/TabSelector.css";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,12 +16,34 @@ const ChallengeSection = ({ userData }) => {
   // Fetch regular challenges
   const fetchChallenges = async () => {
     try {
+
       const response = await axios.get("http://localhost:3000/api/challenges/get");
       console.log(response.data);
       setChallenges(response.data);
     } catch (error) {
       console.error("Error fetching challenges:", error);
     }
+  };
+
+
+  useEffect(() => {
+    fetchChallenges();
+  }, []);
+
+
+
+
+  // Filter challenges based on type
+  const filteredChallenges = challenges.filter(challenge => {
+    if (activeTab === 'steps') return challenge.type === 'steps';
+    if (activeTab === 'strength') return challenge.type === 'strength';
+    if (activeTab === 'combo') return challenge.type === 'combo';
+    return true;
+  });
+
+  const handleChallengeSelect = (challenge) => {
+    setSelectedChallenge(challenge);
+    navigate('/details');
   };
 
   // Fetch personalized recommendations
@@ -105,10 +128,22 @@ const ChallengeSection = ({ userData }) => {
     navigate('/details', { state: { challenge } });
   };
 
+
   return (
     <div className="w-full max-w-[859px] mx-auto rounded-[19px] p-[50px]">
       <div className="mb-10">
         <h2 className="text-white text-3xl font-medium mb-4">
+
+          Challenge Selection
+        </h2>
+        <p className="text-[#CDCDCD] text-xl">
+          Choose a challenge to stake on ETH
+        </p>
+      </div>
+      <div className="StepsStrengthCombo mb-8">
+        <div className="tab-container">
+          <div className="tab-nav">
+
           {userData ? "Recommended For You" : "All Challenges"}
         </h2>
         <p className="text-[#CDCDCD] text-xl">
@@ -125,6 +160,7 @@ const ChallengeSection = ({ userData }) => {
             >
               All
             </button> */}
+
             <button
               className={`tab-button ${activeTab === 'steps' ? 'active' : ''}`}
               onClick={() => setActiveTab('steps')}
@@ -147,6 +183,13 @@ const ChallengeSection = ({ userData }) => {
         </div>
       </div>
 
+      <div className="space-y-12">
+      {filteredChallenges.map((challenge) => (
+          <ChallengeCard
+            key={challenge._id}
+            challenge={challenge}
+
+
       {loading && (
         <div className="text-white text-center py-8">Loading recommendations...</div>
       )}
@@ -157,6 +200,7 @@ const ChallengeSection = ({ userData }) => {
             key={challenge._id}
             challenge={challenge}
             isRecommended={challenge.isRecommended}
+
             onClick={() => handleChallengeSelect(challenge)}
           />
         ))}
