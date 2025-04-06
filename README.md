@@ -39,7 +39,7 @@ This backend handles:
 - User authentication (JWT, OAuth)
 - Challenge creation and tracking
 - MongoDB data management
-- Smart contract interaction
+- Smart contract interaction(Solidity)
 
 ---
 
