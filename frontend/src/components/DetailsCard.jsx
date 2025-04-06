@@ -10,7 +10,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 import useFitnessData from "../Utils/useStepCount";
 import { ethers } from "ethers";
 import getBalance from "../Utils/getbalance";
-import { toast, ToastContainer } from "react-toastify";
 
 const DetailsCard = ({ challenge }) => {
 
@@ -164,19 +163,53 @@ const DetailsCard = ({ challenge }) => {
 
 
   const handleStake = async () => {
+    console.log("potentialReward", potentialReward);
    
+    if (!account) {
+        alert("Please connect your wallet first!");
+        return;
+    }
+
+    // if (currentSteps === null) {
+    //     alert("Fetching step data, please wait...");
+    //     return;
+    // }
+
+    setLoading(true);
     try {
         // 1. Set goal in the smart contract
         
-       
+        const weiAmount = ethers.parseEther(parseFloat(ethAmount).toFixed(18)); // Convert to 18 decimals
+        const weiReward = ethers.parseEther(parseFloat(potentialReward/156697).toFixed(18)); // Convert to 18 decimals
+        
 
-      
+        // const transaction = await contract.setGoal(weiAmount, weiReward, { value: weiAmount });
+         const transaction = await contract.setGoal( weiReward, { value: weiAmount });
+        // const transaction = await contract.setGoal({ value: weiAmount });
+        // const transaction = await contract.addBalance({ value: weiAmount });
+
+        // const transaction = await contract.deleteGoal();
+        await transaction.wait(); // Wait for the transaction to be mined
+
+
+         // 2. Print contract balance
+         const contractBalance = await contract.getContractBalance();
+         console.log("Contract Balance after setting goal:", ethers.formatEther(contractBalance));
+         
+         // 3. Print user goal data
+         const [stake, reward] = await contract.getUserGoal(account);
+         console.log("User stake amount:", ethers.formatEther(stake));
+         console.log("User reward amount:", ethers.formatEther(reward));
+         
+         const balance = await getBalance(account);
+         console.log(balance*156697);
+         Setbalance(balance);
 
         // 2. Execute the rest of the function after the contract goal is set
         const stakeData = {
             challengeId: challenge._id,
-            ethStaked: "7",
-            rewardsEarned: "6",
+            ethStaked: ethAmount,
+            rewardsEarned: potentialReward,
             isCompleted: false
         };
 
@@ -186,7 +219,7 @@ const DetailsCard = ({ challenge }) => {
         );
 
         if (response.status === 201) {
-           toast.success("Challenge started successfully!");
+            alert("Challenge started successfully!");
             localStorage.setItem("challengeInitialSteps", currentSteps); // Store correct steps
             navigate("/");
         } else {
@@ -201,8 +234,7 @@ const DetailsCard = ({ challenge }) => {
 };
 
   return (
-   <>
-    {/* <div className="bg-[#1A0F2B] border-2 border-[#301F4C] rounded-[11px] p-6">
+    <div className="bg-[#1A0F2B] border-2 border-[#301F4C] rounded-[11px] p-6">
       <div className="flex justify-between items-start mb-5">
         
       </div>
@@ -252,7 +284,7 @@ const DetailsCard = ({ challenge }) => {
           <span className="font-semibold">Note:</span> Your stake will be refunded if you complete {challenge?.stepGoal?.toLocaleString() || "0"} steps within 24 hours. 
           If you fail, your stake will be distributed to the reward pool.
         </p>
-      </div> */}
+      </div>
 
       <div className="flex justify-between gap-4 mt-[38px]">
         <button
@@ -260,13 +292,10 @@ const DetailsCard = ({ challenge }) => {
           onClick={handleStake}
           disabled={loading}
         >
-          {loading ? "Loading.." : "Take this Challenge"}
+          {loading ? "Staking..." : "Stake Amount"}
         </button>
       </div>
-      
-    {/* </div> */}
-    <ToastContainer/>
-   </>
+    </div>
   );
 };
 

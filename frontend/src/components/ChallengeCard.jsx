@@ -1,14 +1,16 @@
 import React from "react";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import "../styles/DesktopHome.css";
 import { useNavigate } from "react-router-dom";
+import { useChallengeContext } from "../context/ChallengeContext";
 
-const ChallengeCard = ({ challenge, isRecommended, onClick }) => {
+const ChallengeCard = ({ challenge, onClick }) => {
   const navigate = useNavigate();
+  // const { setSelectedChallenge } = useChallengeContext();
 
   const getDifficultyStyles = (difficulty) => {
     const baseStyles = "text-white text-xs px-1 py-0.5 rounded-full";
-    switch ((difficulty || '').toLowerCase()) {
+    switch (difficulty.toLowerCase()) {
       case "easy":
         return `${baseStyles} bg-[#00FF84] border border-[#1AFF00]`;
       case "medium":
@@ -22,80 +24,45 @@ const ChallengeCard = ({ challenge, isRecommended, onClick }) => {
 
   const handleDetailsClick = (e) => {
     e.stopPropagation();
-    navigate("/details", { state: { challenge } });
+    // setSelectedChallenge(challenge);
+    navigate("/details",{state:{challenge}});
   };
 
   return (
     <div 
-      className={`bg-[#1A0F2B] border-2 rounded-[11px] p-6 cursor-pointer hover:border-[#512E8B] transition-colors relative ${
-        isRecommended 
-          ? "border-[#FFD700] shadow-lg shadow-[#FFD700]/20" 
-          : "border-[#301F4C]"
-      }`}
+      className="bg-[#1A0F2B] border-2 border-[#301F4C] rounded-[11px] p-6 cursor-pointer hover:border-[#512E8B] transition-colors"
       onClick={onClick}
     >
-      {isRecommended && (
-        <div className="absolute top-2 right-2 flex items-center bg-[#FFD700] text-[#1A0F2B] px-2 py-1 rounded-full text-xs font-bold">
-          <Star className="w-3 h-3 mr-1" fill="#1A0F2B" />
-          AI Recommended
-          {challenge.rawData?.RecommendationScore && (
-            <span className="ml-1">({challenge.rawData.RecommendationScore.toFixed(1)})</span>
-          )}
-        </div>
-      )}
-
       <div className="flex justify-between items-start mb-5">
         <div>
-          <h3 className="text-white text-2xl font-medium mb-2.5">
-            {challenge.name}
-          </h3>
+          <h3 className="text-white text-2xl font-medium mb-2.5">{challenge.name}</h3>
           <p className="text-[#CDCDCD] text-lg">
-            {challenge.description || 
-              `Complete ${challenge.stepGoal || 0} steps${
-                challenge.exercises?.length ? ` + ${challenge.exercises.length} exercises` : ''
-              }`}
+            Complete {challenge.stepGoal} steps
+            {challenge.exercises?.length ? ` + ${challenge.exercises.length} exercises` : ''}
           </p>
         </div>
         <span className={getDifficultyStyles(challenge.difficulty)}>
-          {challenge.difficulty || 'Medium'}
+          {challenge.difficulty}
         </span>
       </div>
 
       <div className="bg-[#403359] rounded-lg px-4 py-[17px]">
         <div className="flex justify-between items-end">
           <div>
-            {/* <p className="text-white text-xl mb-4">Stake Range</p> */}
-            <p className="text-white text-lg">Reward:</p>
+            <p className="text-white text-xl mb-4">Stake Range</p>
+            <p className="text-white text-lg">Reward Multiplier:</p>
           </div>
           <div className="text-right">
-            {/* <p className="text-white text-lg mb-[15px]">
-              {challenge.minStake || 0.01} ETH - {challenge.maxStake || 0.1} ETH
-            </p> */}
-            <p className="text-white text-lg">
-+5
+            <p className="text-white text-lg mb-[15px]">
+              {challenge.minStake} ETH - {challenge.maxStake} ETH
             </p>
+            <p className="text-white text-lg">{challenge.rewardMultiplier}x rewards</p>
           </div>
         </div>
       </div>
 
-      {isRecommended && challenge.rawData?.Exercises && (
-        <div className="mt-4 bg-[#403359]/50 rounded-lg px-4 py-3">
-          <p className="text-white text-sm font-medium mb-1">Includes:</p>
-          <div className="flex flex-wrap gap-2">
-            {challenge.rawData.Exercises.map((exercise, index) => (
-              <span key={index} className="text-xs bg-[#512E8B] text-white px-2 py-1 rounded">
-                {exercise}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
       <div className="flex justify-end mt-[38px]">
-        <button 
-          className="details-btn" 
-          onClick={handleDetailsClick}
-        >
+        <button className="details-btn" onClick={handleDetailsClick}>
           Details
           <ArrowRight className="w-5 h-5" />
         </button>
