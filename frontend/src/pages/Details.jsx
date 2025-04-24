@@ -23,7 +23,7 @@ const Details = () => {
   const chatMessages = [
     {
       sender: "bot",
-      text: "Hi there! I'm your StakeFit assistant. How can I help you today?",
+      text: "Hi there! I'm your WeFit assistant. How can I help you today?",
       timestamp: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",

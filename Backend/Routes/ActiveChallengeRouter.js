@@ -7,49 +7,113 @@ const authenticateToken = require("../Middleware/Authenticatetowken"); // Middle
 
 const ActiveChallengeRouter = express.Router();
 
+// ActiveChallengeRouter.post("/create/:token", authenticateToken, async (req, res) => {
+//   try {
+
+//     console.log("hello active challenge")
+//     console.log(req.user.userId);
+//     const userId = req.user.userId;
+    
+//     const { challengeId, ethStaked, rewardsEarned, isCompleted } = req.body;
+
+
+//     // Validate if challengeId exists
+//     const challenge = await Challenge.findById(challengeId);
+//     if (!challenge) {
+//       return res.status(404).json({ message: "Challenge not found" });
+//     }
+
+    
+//      // ✅ Prepare exercises from Challenge schema
+//      const exercises = challenge.exercises.map((exercise) => ({
+//       name: exercise.name,
+//       reps: exercise.reps,
+//       completedReps: 0,
+//       isCompleted: false,
+//       isVideoRequired: exercise.name.toLowerCase() !== "steps", // ✅ Step doesn't need a video
+//       videoUrl: "" // ✅ Default empty video URL
+//     }));
+
+//     // Create Active Challenge document
+//     const newChallenge = new ActiveChallenge({
+//       userId,
+//       challengeId,
+//       exercises, // Use exercises from Challenge schema
+//       ethStaked,
+//       rewardsEarned,
+
+//       isCompleted,
+//     });
+
+//     await newChallenge.save();
+//     res.status(201).json({ message: "Active Challenge created successfully!", challenge: newChallenge });
+//   } catch (error) {
+//     console.error("Error creating Active Challenge:", error);
+//     res.status(500).json({ message: "Internal Server Error", error: error.message });
+//   }
+// });
+
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
+
 ActiveChallengeRouter.post("/create/:token", authenticateToken, async (req, res) => {
   try {
-
-    console.log("hello active challenge")
-    console.log(req.user.userId);
+    console.log("Creating active challenge");
     const userId = req.user.userId;
-    
     const { challengeId, ethStaked, rewardsEarned, isCompleted } = req.body;
 
-
-    // Validate if challengeId exists
+    
+ console.log("ffff",challengeId);
+    // Validate if challenge exists
     const challenge = await Challenge.findById(challengeId);
     if (!challenge) {
-      return res.status(404).json({ message: "Challenge not found" });
+      return res.status(404).json({ 
+        message: "Challenge not found",
+        details: `No challenge found with ID: ${challengeId}`
+      });
     }
 
-    
-     // ✅ Prepare exercises from Challenge schema
-     const exercises = challenge.exercises.map((exercise) => ({
+    // Prepare exercises
+    const exercises = challenge.exercises.map((exercise) => ({
       name: exercise.name,
       reps: exercise.reps,
       completedReps: 0,
       isCompleted: false,
-      isVideoRequired: exercise.name.toLowerCase() !== "steps", // ✅ Step doesn't need a video
-      videoUrl: "" // ✅ Default empty video URL
+      isVideoRequired: exercise.name.toLowerCase() !== "steps",
+      videoUrl: ""
     }));
 
-    // Create Active Challenge document
+    // Create new active challenge
     const newChallenge = new ActiveChallenge({
       userId,
       challengeId,
-      exercises, // Use exercises from Challenge schema
+      exercises,
       ethStaked,
       rewardsEarned,
-
       isCompleted,
     });
 
     await newChallenge.save();
-    res.status(201).json({ message: "Active Challenge created successfully!", challenge: newChallenge });
+    
+    res.status(201).json({ 
+      message: "Active Challenge created successfully!",
+      challenge: newChallenge 
+    });
+
   } catch (error) {
     console.error("Error creating Active Challenge:", error);
-    res.status(500).json({ message: "Internal Server Error", error: error.message });
+    
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ 
+        message: "Validation Error",
+        details: error.message 
+      });
+    }
+    
+    res.status(500).json({ 
+      message: "Internal Server Error",
+      details: error.message 
+    });
   }
 });
 
@@ -111,6 +175,7 @@ ActiveChallengeRouter.put("/update/:token", authenticateToken, async (req, res) 
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
 
 
 

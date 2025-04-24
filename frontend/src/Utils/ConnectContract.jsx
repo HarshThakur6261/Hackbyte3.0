@@ -33,7 +33,7 @@
 import { ethers } from "ethers";
 import StakeFitABI from "./StakeFitABI.json";
 //0xC65C63050a442c275AeFba550c9e66588fa8f95f
-const CONTRACT_ADDRESS = "0xaCD9D3eB14cf1848457CA21aeB751330b39aA40c";
+const CONTRACT_ADDRESS = "0x2f4Ff67f075d40039079c6D7098D35605C7a03D5";
 
 export const getEthereumObject = () => {
     if (window.ethereum) {

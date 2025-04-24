@@ -7,21 +7,12 @@ const ProgressCircle = ({ exercise, handlecompleteExercise }) => {
   const { todaySteps } = useFitnessData();
   const [progress, setProgress] = useState(0);
 
-  // Safely get target steps with fallback
-  const targetSteps = exercise?.reps || 1; // Default to 1 to avoid division by zero
-  const circleCircumference = 339.3;
+  const targetSteps = exercise?.reps || 1;
+  const circleCircumference = 2 * Math.PI * 54; // More accurate calculation
 
-  // Calculate progress with null checks
   const effectiveSteps = Math.max(todaySteps - alreadySteps, 0);
   const progressPercentage = targetSteps > 0 ? Math.min(effectiveSteps / targetSteps, 1) : 0;
   const progressOffset = circleCircumference * (1 - progressPercentage);
-
-  // Rest of the component remains the same...
-  const getProgressColor = () => {
-    if (progressPercentage < 0.3) return "#FF3B30";
-    if (progressPercentage < 0.7) return "#FF9500";
-    return "#4CD964";
-  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -37,10 +28,43 @@ const ProgressCircle = ({ exercise, handlecompleteExercise }) => {
     }
   }, [progressPercentage, handlecompleteExercise, exercise?._id]);
 
+  const getProgressColor = () => {
+    const normalizedProgress = progressPercentage;
+    
+    if (normalizedProgress < 0.25) {
+      // Red to Orange
+      const ratio = normalizedProgress / 0.25;
+      return `rgb(${Math.floor(255 * (1 - ratio) + 255 * ratio)}, 
+              ${Math.floor(59 * (1 - ratio) + 149 * ratio)}, 
+              ${Math.floor(48 * (1 - ratio))}`;
+    } else if (normalizedProgress < 0.75) {
+      // Orange to Yellow
+      const ratio = (normalizedProgress - 0.25) / 0.5;
+      return `rgb(${Math.floor(255 * (1 - ratio) + 255 * ratio)}, 
+              ${Math.floor(149 * (1 - ratio) + 204 * ratio)}, 
+              ${Math.floor(0 * (1 - ratio) + 0 * ratio)})`;
+    } else {
+      // Yellow to Green
+      const ratio = (normalizedProgress - 0.75) / 0.25;
+      return `rgb(${Math.floor(255 * (1 - ratio) + 76 * ratio)}, 
+              ${Math.floor(204 * (1 - ratio) + 217 * ratio)}, 
+              ${Math.floor(0 * (1 - ratio) + 100 * ratio)})`;
+    }
+  };
+
   return (
     <div className="relative flex items-center justify-center w-[170px] h-[170px]">
       <svg width="175" height="175" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="54" fill="none" stroke="#F2F3F1" strokeWidth="12" />
+        {/* Background circle */}
+        <circle 
+          cx="60" 
+          cy="60" 
+          r="54" 
+          fill="none" 
+          stroke="#2B1748" 
+          strokeWidth="12" 
+        />
+        {/* Progress circle */}
         <circle
           cx="60"
           cy="60"
@@ -50,13 +74,21 @@ const ProgressCircle = ({ exercise, handlecompleteExercise }) => {
           strokeWidth="12"
           strokeLinecap="round"
           strokeDasharray={circleCircumference}
-          strokeDashoffset={`${progress}`}
+          strokeDashoffset={progress}
           transform="rotate(-90 60 60)"
-          style={{ transition: "stroke-dashoffset 1.5s ease-out" }}
+          style={{ 
+            transition: "stroke-dashoffset 1.5s ease-out, stroke 0.5s ease-out",
+            filter: "drop-shadow(0 0 5px rgba(123, 97, 255, 0.5))"
+          }}
         />
       </svg>
-      <div className="absolute text-2xl font-bold text-white">
-        <AnimatedNumber value={effectiveSteps} />
+      <div className="absolute flex flex-col items-center justify-center text-center">
+        <div className="text-2xl font-bold text-white">
+          <AnimatedNumber value={effectiveSteps} />
+        </div>
+        <div className="text-xs text-purple-300 mt-1">
+          of {targetSteps} steps
+        </div>
       </div>
     </div>
   );

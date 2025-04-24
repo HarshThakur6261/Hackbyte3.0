@@ -360,7 +360,7 @@ const Input = () => {
                             className="py-3 mt-8 w-full font-bold text-white bg-indigo-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-indigo-600 transition-colors"
                             disabled={!isFormValid() || isSubmitting}
                         >
-                            {isSubmitting ? "Processing..." : "Continue"}
+                            {isSubmitting ? "Processing Subscription fees..." : "Continue"}
                         </button>
                     </div>
                 </form>

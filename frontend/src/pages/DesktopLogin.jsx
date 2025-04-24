@@ -1,22 +1,43 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/DesktopLogin.css";
-
+import { useGoogleAuth } from "../utils/useGoogleAuth";
+import { useAuth } from "../context/AuthContext";
+import { jwtDecode} from "jwt-decode";
 
 const DesktopLogin = () => {
   const navigate = useNavigate();
   // const location = useLocation();
-  const { token } = useAuth();
+  const { token ,JwtToken} = useAuth();
   const { handleAuth } = useGoogleAuth();
 
   // Redirect if already logged in
   useEffect(() => {
-    if (token) {
-      // console.log(token)
-      navigate("/");
+    if (token && JwtToken) {
+      try {
+        const decoded = jwtDecode(JwtToken);
+        const email = decoded?.email;
+  
+        if (email) {
+          // Check if the user is new or not from the response
+          const isNewUser = decoded?.isNewUser;
+  
+          if (isNewUser) {
+            navigate("/input", {
+              state: {
+                email: email,
+              },
+            });
+          } else {
+            navigate("/");  // Returning user
+          }
+        }
+      } catch (err) {
+        console.error("JWT decode error:", err);
+      }
     }
-
-  }, [token, navigate, location.state]);
+  }, [token, JwtToken, navigate]);
+  
 
   return (
     <div className="desktop-login-container">
@@ -34,10 +55,10 @@ const DesktopLogin = () => {
             alt=""
             className="desktop-login-logo"
           />
-          <div className="desktop-login-brand-name">StakeFit</div>
+          <div className="desktop-login-brand-name">WeFit</div>
         </div>
         <div className="desktop-login-welcome-section">
-          <div className="desktop-login-title">Welcome To StakeFit</div>
+          <div className="desktop-login-title">Welcome To WeFit</div>
           <div className="desktop-login-subtitle">Sweat, hustle, and earn</div>
         </div>
         <div className="desktop-login-form-container">

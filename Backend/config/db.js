@@ -42,32 +42,38 @@ const userSchema = new mongoose.Schema({
     //   validator: function (v) {
     //     return /^0x[a-fA-F0-9]{40}$/.test(v);
     //   },
-    //   message: props => `${props.value} is not a valid wallet address!`
+    //   message: props => ${props.value} is not a valid wallet address!
     // }
   },
 
   // Challenges
-  challengesWon: [{
-    challengeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Challenge',
-      required: true
-    },
-    dateCompleted: {
-      type: Date,
-      default: Date.now
-    },
-    stakedAmount: {
-      type: Number,
-      required: true,
+  challengesWon:{
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  physicalData: {
+    height: {
+      type: Number, // in cm
       min: 0
     },
-    rewardReceived: {
-      type: Number,
-      required: true,
+    weight: {
+      type: Number, // in kg
       min: 0
+    },
+    bmi: {
+      type: Number,
+      min: 0
+    },
+    age: {
+      type: Number,
+      min: 0
+    },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other']
     }
-  }],
+  },
 
   // Activity
   currentStreak: {
@@ -75,6 +81,19 @@ const userSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+  totalEthEarned: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  points:{
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  isPaid:{
+    type:Boolean,
+  }
 
 }, {
   timestamps: true
@@ -147,4 +166,7 @@ const Challenge = mongoose.model('Challenge', challengeSchema);
 
 // Export both models
 module.exports = { User, Challenge };
+
+
+
 
