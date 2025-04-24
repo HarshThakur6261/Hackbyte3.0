@@ -48,4 +48,96 @@ Historyrouter.get("/get/:email", authenticateToken, async (req, res) => {
 });
 
 
+// Historyrouter.get('/user/:token', authenticateToken ,async (req, res) => {
+//   try {
+//     const userId = req.user.userId;
+    
+//     // Find all history entries for this user and populate challenge details
+//     const historyEntries = await History.find({ userId })
+//       .populate('challengeId', 'title duration category')
+//       .sort({ createdAt: -1 }); // Sort by newest first
+      
+    
+//     // Calculate statistics
+//     let totalChallenges = historyEntries.length;
+//     let completedChallenges = historyEntries.filter(entry => entry.isCompleted).length;
+//     let successRate = totalChallenges > 0 ? Math.round((completedChallenges / totalChallenges) * 100) : 0;
+    
+//     let ethEarned = historyEntries
+//       .filter(entry => entry.isCompleted)
+//       .reduce((total, entry) => total + entry.rewardsEarned, 0);
+    
+//     let ethLost = historyEntries
+//       .filter(entry => !entry.isCompleted)
+//       .reduce((total, entry) => total + entry.ethStaked, 0);
+    
+//     // Format the response
+//     const response = {
+//       stats: {
+//         totalChallenges,
+//         successRate: `${successRate}%`,
+//         ethEarned,
+//         ethLost
+//       },
+//       historyEntries
+//     };
+    
+//     res.status(200).json(response);
+//   } catch (error) {
+//     console.error('Error fetching user history:', error);
+//     res.status(500).json({ message: 'Failed to fetch history data' });
+//   }
+// });
+
+// Improved API with more detailed challenge information
+Historyrouter.get('/user/:token', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    
+    // Find all history entries for this user with full challenge details
+    const historyEntries = await History.find({ userId })
+      .populate('challengeId')  // This populates the entire challenge document
+      .sort({ createdAt: -1 });
+    
+    // Calculate statistics
+    let totalChallenges = historyEntries.length;
+    let completedChallenges = historyEntries.filter(entry => entry.isCompleted).length;
+    let successRate = totalChallenges > 0 ? Math.round((completedChallenges / totalChallenges) * 100) : 0;
+    
+    let ethEarned = historyEntries
+      .filter(entry => entry.isCompleted)
+      .reduce((total, entry) => total + entry.rewardsEarned, 0);
+    
+    let ethLost = historyEntries
+      .filter(entry => !entry.isCompleted)
+      .reduce((total, entry) => total + entry.ethStaked, 0);
+    
+  
+    
+    // Format the response
+    const response = {
+      stats: {
+        totalChallenges,
+        successRate: `${successRate}%`,
+        ethEarned,
+        ethLost,
+       
+      },
+      historyEntries: historyEntries.map(entry => ({
+        ...entry.toObject(),
+        challengeName: entry.challengeId?.name || 'Unknown Challenge',
+       
+        
+      }))
+    };
+    
+    res.status(200).json(response);
+  } catch (error) {
+    console.error('Error fetching user history:', error);
+    res.status(500).json({ message: 'Failed to fetch history data' });
+  }
+});
+
+
+
 module.exports = Historyrouter;

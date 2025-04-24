@@ -1,110 +1,126 @@
-/* Add this CSS rule for the floating chatbot bubble */
+/* Enhanced Desktop Home CSS */
+.leaderboard-bubble {
+  position: fixed;
+  bottom: 120px; /* Position above the chatbot */
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #512E8B;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.leaderboard-bubble:hover {
+  transform: scale(1.1);
+  background-color: #3a1d66;
+}
 
 .desktop-home {
   width: 100%;
   min-height: 100vh;
   background-image: url("../assets/Desktop.png");
   background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   overflow: hidden;
-
-  
   font-family: "Poppins", sans-serif;
-  
-
-
 }
-/* Add this CSS rule for the floating chatbot bubble */
-/* Add this CSS rule for the floating chatbot bubble */
+
+/* Improved floating chatbot bubble with smoother animation */
 .chatbot-bubble {
   position: fixed;
-  bottom: 20px;
-  right: 50px;
-  width: 80px;
-  height: 80px;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background-color: rgba(26, 15, 43, 1);
+  background: linear-gradient(135deg, #8A2387 0%, #E94057 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(138, 35, 135, 0.3);
   z-index: 100;
-  animation: float 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Add animation for the radial progress bar */
-@keyframes progress-fill {
-  0% {
-    stroke-dashoffset: 339.3; /* Full circle length */
-  }
-  100% {
-    stroke-dashoffset: 122.1; /* 64% completion */
-  }
-}
-
-/* Add the floating animation keyframes */
+/* Improved floating animation */
 @keyframes float {
   0% {
     transform: translateY(0px);
+    box-shadow: 0 6px 16px rgba(138, 35, 135, 0.3);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-15px);
+    box-shadow: 0 15px 25px rgba(138, 35, 135, 0.2);
   }
   100% {
     transform: translateY(0px);
+    box-shadow: 0 6px 16px rgba(138, 35, 135, 0.3);
   }
-}
-
-.chatbot-bubble img:hover {
-  animation-play-state: paused;
-  transform: scale(1.3);
-  transition: transform 0.3s ease;
 }
 
 .chatbot-bubble:hover {
   animation-play-state: paused;
-  transform: scale(1.3);
-  transition: transform 0.3s ease;
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(138, 35, 135, 0.4);
 }
 
 .chatbot-bubble img {
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
-
 
 .desktop-home__container {
-  max-width: 1242px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
+/* Enhanced header with better alignment */
 .desktop-home__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 37px 0;
+  padding: 30px 0;
+  margin-bottom: 20px;
 }
 
 .desktop-home__logo-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .desktop-home__logo-image {
-  width: 33px;
-  height: 58px;
+  width: 40px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .desktop-home__logo-text {
   color: #ffffff;
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.details-btn{
+
+/* Improved button styles */
+.details-btn {
   background: linear-gradient(270deg, #8A2387 0%, #E94057 100%);
   display: flex;
   color: #ffffff;
@@ -114,10 +130,18 @@
   height: 55px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(233, 64, 87, 0.3);
 }
-.detailss-btn{
-  background: linear-gradient(270deg, #e4e4e4 0%, #e4e4e4 100%);
+
+.details-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(233, 64, 87, 0.4);
+}
+
+.detailss-btn {
+  background: rgba(228, 228, 228, 0.9);
   display: flex;
   color: #000000;
   align-items: center;
@@ -125,10 +149,17 @@
   width: 100%;
   height: 55px;
   font-size: 16px;
-  font-weight: 500;
-  border-radius: 10px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
-.detailsss-btn{
+
+.detailss-btn:hover {
+  background: rgba(228, 228, 228, 1);
+  transform: translateY(-2px);
+}
+
+.detailsss-btn {
   background: linear-gradient(270deg, #8A2387 0%, #E94057 100%);
   display: flex;
   color: #ffffff;
@@ -137,244 +168,349 @@
   width: 100%;
   height: 55px;
   font-size: 16px;
-  font-weight: 500;
-  border-radius: 10px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(233, 64, 87, 0.3);
 }
+
+.detailsss-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(233, 64, 87, 0.4);
+}
+
+/* Improved content layout with glassmorphism */
 .desktop-home__content {
   display: flex;
-  flex-wrap: wrap;
-  align-items: start;
-  gap: 40px;
-  padding: 37px 37px;
-  background-color: #4a336e6a;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 40px;
+  background: rgba(74, 51, 110, 0.6);
+  backdrop-filter: blur(10px);
   border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .desktop-home__left-section {
   display: flex;
   flex-direction: column;
-  gap: 63px;
-  
-  max-width: 530px;
-  
+  gap: 40px;
+  width: 45%;
+  min-width: 400px;
 }
 
 .desktop-home__welcome {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 15px;
 }
 
+/* Enhanced gradient title */
 .desktop-home__title {
-  background: -webkit-linear-gradient(
-    180deg,
-    #8A2387 0%,
-    #E94057 100%
-  );
+  background: linear-gradient(135deg, #8A2387 0%, #E94057 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 50px;
-  font-weight: 600;
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(233, 64, 87, 0.3);
 }
-.desktop-home__user-info{
-  height: 63px;
-  width: 63px;
-  border-radius: 100%;
+
+.desktop-home__user-info {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
   background-image: url("../assets/profile.jpg");
   background-size: cover;
+  border: 3px solid #8A2387;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .desktop-home__subtitle {
   color: #ffffff;
-  font-size: 25px;
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
 }
 
-.desktop-home__stake-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* Hero button with improved animation */
+.herobutton {
   width: 100%;
-  max-width: 490px;
-}
-
-.desktop-home__stake-label {
-  color: #f3f3f3;
-  font-size: 21px;
-}
-
-.desktop-home__input-container {
-  background-color: #3a1f67;
-  border-radius: 7px;
-  border: 1px solid #737373;
-  padding: 1rem;
-}
-
-.desktop-home__input {
-  background-color: transparent;
+  height: 60px;
+  background: linear-gradient(270deg, #8A2387 0%, #E94057 100%);
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 600;
   color: #ffffff;
-  width: 100%;
-  border: none;
-  outline: none;
-}
-
-.desktop-home__stake-button {
-  background:linear-gradient(270deg, #8A2387 0%, #E94057 100%);
-  color: #ffffff;
-  font-size: 17px;
-  padding: 10px;
-  border-radius: 10px;
-  width: 100%;
+  margin-top: 30px;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(233, 64, 87, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.desktop-home__right-section {
-  flex: 1;
+.herobutton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(233, 64, 87, 0.5);
 }
 
+.herobutton:active {
+  transform: translateY(-2px);
+}
 
-
-
-.desktop-home__hero-image {
+.herobutton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 834px;
-  margin-left: 100px;
-
-  height: auto;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
 }
 
+.herobutton:hover::after {
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced stats cards */
 .desktop-home__stats {
   display: flex;
-  gap: 39px;
-  padding: 30px 0;
-  margin-top: -100px;
+  gap: 25px;
+  padding: 20px 0;
+  margin-top: -80px;
 }
-.desktop-section-text{
-  font-size: 1.125rem; /* Equivalent to text-lg (18px) */
-  font-weight: 500; /* Equivalent to font-medium */
-  background: -webkit-linear-gradient(
-    180deg,
-    #8A2387 0%,
-    #E94057 100%
-  );
+
+.desktop-section-text {
+  font-size: 20px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #8A2387 0%, #E94057 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
 }
+
 .desktop-home__stats-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #1A0F2B;
-  border-width: 4px;
-  border-color: #301F4C;
-  border-radius: 23px;
+  background-color: rgba(26, 15, 43, 0.85);
+  border: 4px solid rgba(48, 31, 76, 0.8);
+  border-radius: 25px;
   justify-content: center;
-  padding: 23px 28px;
+  padding: 30px;
   flex: 1;
-  min-width: 530px;
-  max-height: 200px;
-}
-.herobutton{
   width: 100%;
-  height: 54px;
-  background: linear-gradient(270deg, #8A2387 0%, #E94057 100%);
-  border-radius: 1000px;
-  font-size:17px ;
-  color: #ffffff;
-  margin-top: 50px;
+  max-height: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+.desktop-home__stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(138, 35, 135, 0.5);
 }
 
 .desktop-home__stats-icon-container {
-  background-color: #413359;
+  background-color: rgba(65, 51, 89, 0.8);
   border-radius: 55px;
-  padding: 11px;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .desktop-home__stats-icon {
-  width: 124px;
-  height: 124px;
+  width: 110px;
+  height: 110px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .desktop-home__stats-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .desktop-home__stats-label {
   color: #ffffff;
-  font-size: 21px;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .desktop-home__stats-value-container {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 15px;
 }
 
 .desktop-home__stats-value {
   color: #ffffff;
-  font-size: 45px;
+  font-size: 48px;
+  font-weight: 700;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .desktop-home__stats-suffix {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 20px;
+  opacity: 0.9;
 }
 
+/* Enhanced progress bar */
 .desktop-home__progress-bar {
-  width: 138px;
-  height: 8px;
-  background-color: #f2f3f1;
-  border-radius: 43px;
+  width: 160px;
+  height: 10px;
+  background-color: rgba(242, 243, 241, 0.3);
+  border-radius: 50px;
   position: relative;
-  margin-top: 8px;
+  margin-top: 15px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .desktop-home__progress-fill {
   position: absolute;
   left: 0;
   top: 0;
-  width: 93px;
-  height: 8px;
-  background-color: #b057f5;
-  border-radius: 43px;
+  height: 10px;
+  background: linear-gradient(90deg, #8A2387 0%, #E94057 100%);
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(176, 87, 245, 0.5);
+  transition: width 1s ease-in-out;
 }
+
+/* Add a pulsing animation to the progress fill */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(176, 87, 245, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(176, 87, 245, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(176, 87, 245, 0.5);
+  }
+}
+
+.desktop-home__progress-fill {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive design improvements */
 @media (max-width: 1200px) {
-  .desktop-home__hero-image{
+  .desktop-home__hero-image {
     display: none;
   }
+  
   .desktop-home__stats {
     flex-wrap: wrap;
   }
+  
   .desktop-home__content {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 30px;
   }
   
+  .desktop-home__left-section {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .desktop-home__title {
+    font-size: 46px;
+  }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 768px) {
+  .desktop-home__container {
+    padding: 0 1rem;
+  }
   
-
+  .desktop-home__content {
+    padding: 25px;
+  }
   
-  .desktop-home__hero-image{
-    display: none;
+  .desktop-home__title {
+    font-size: 40px;
+  }
+  
+  .desktop-home__subtitle {
+    font-size: 22px;
+  }
+  
+  .desktop-home__stats-value {
+    font-size: 38px;
+  }
+  
+  .chatbot-bubble {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .chatbot-bubble img {
+    width: 35px;
+    height: 35px;
   }
 }
 
 @media (max-width: 640px) {
+  .desktop-home__header {
+    padding: 20px 0;
+  }
+  
+  .desktop-home__logo-text {
+    font-size: 24px;
+  }
+  
   .desktop-home__title {
-    font-size: 40px;
+    font-size: 36px;
   }
-
+  
   .desktop-home__subtitle {
-    font-size: 20px;
+    font-size: 18px;
   }
-
+  
   .desktop-home__stats {
-    gap: 20px;
+    gap: 15px;
+  }
+  
+  .desktop-home__stats-card {
+    padding: 20px;
+  }
+  
+  .desktop-home__stats-icon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .herobutton {
+    height: 50px;
+    font-size: 16px;
   }
 }

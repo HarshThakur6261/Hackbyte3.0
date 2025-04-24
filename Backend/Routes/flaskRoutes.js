@@ -75,5 +75,32 @@ router.get("/get_pushup_count", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch pushup count" });
   }
 });
+router.post('/recommendations', async (req, res) => {
+  try {
+    console.log("hello")
+    // Verify the data exists and has required fields
+    if (!req.body || !req.body.height) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const response = await axios.post('http://127.0.0.1:5000/recommend', req.body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response.data)
+    
+    res.json(response.data);
+  } catch (error) {
+    console.error('Flask API error:', error);
+    res.status(error.response?.status || 500).json({ 
+      error: error.response?.data?.error || 'Failed to get recommendations' 
+    });
+  }
+});
 
 module.exports = router;
+
+
+
+

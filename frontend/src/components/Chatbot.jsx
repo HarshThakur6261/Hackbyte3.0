@@ -14,7 +14,7 @@ const Chatbot = ({ isOpen, onClose, messages }) => {
   return (
     <div className={`chatbot-container ${isOpen ? 'open' : ''}`}>
       <div className="chatbot-header">
-        <div className="chatbot-title">StakeFit Assistant</div>
+        <div className="chatbot-title">WeFit Assistant</div>
         <button className="chatbot-close-btn" onClick={onClose}>×</button>
       </div>
       

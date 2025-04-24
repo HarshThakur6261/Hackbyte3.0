@@ -5,12 +5,12 @@ const challengeData = express.Router();
 
 challengeData.get('/get', async (req, res) => {
   try {
-    console.log("running")
+    // console.log("running")
     const challenges = await Challenge.find();
     res.status(201).json(challenges);
 
   } catch (error) {
-    console, log(error);
+    console.log(error);
     res.status(404);
   }
 })

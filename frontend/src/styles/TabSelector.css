@@ -1,0 +1,35 @@
+.tab-container {
+  background-color: #1A0F2B;
+  border: 2px solid #301F4C;
+  border-radius: 11px;
+  padding: 0.5rem;
+}
+
+.tab-nav {
+  display: flex;
+  border-bottom: 1px solid #301F4C;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  padding: 0.75rem 5.6rem;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #9F4FE1;
+}
+
+.tab-content {
+  margin-top: 2rem;
+}
+
+.tab-content > div {
+  display: none;
+}
+
+.tab-content > div.active {
+  display: block;
+}

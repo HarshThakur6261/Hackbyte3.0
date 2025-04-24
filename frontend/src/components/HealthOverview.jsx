@@ -21,7 +21,7 @@ const HealthOverview = () => {
       setProgress({
         steps: (todaySteps / targets.steps) * 100,
         calories: (todayCalories/ targets.calories) * 100,
-        distance: (3 / targets.distance) * 100,  // Assuming 3 km as a placeholder
+        distance: (3 / targets.distance) * 10,  // Assuming 3 km as a placeholder
       });
     };
 

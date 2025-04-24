@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/MobileLogin.css";
-
+import { useGoogleAuth } from "../utils/useGoogleAuth";
 
 const MobileLogin = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const MobileLogin = ({ setIsLoggedIn }) => {
       <div className="mobile-login__content">
         <div className="mobile-login__container">
           <div className="mobile-login__welcome">
-            <div className="mobile-login__title">Welcome To StakeFit</div>
+            <div className="mobile-login__title">Welcome To WeFit</div>
             <div className="mobile-login__subtitle">
               Sweat, hustle, and earn
             </div>
