@@ -1,79 +1,68 @@
-## 🚀 Deployment Guide
+# 🏋️ WeFit - Blockchain-Powered Fitness Rewards App  
 
-Here’s how to run *FitnessConnect* on your local system.
+A decentralized fitness app that **rewards users** for completing workouts using **blockchain-based subscriptions, AI-driven exercise recommendations, and live activity verification** via OpenCV.  
 
-### 📁 Project Structure
+## ✨ Features  
+
+| Feature | Description |  
+|---------|------------|  
+| 🔒 **Blockchain Subscriptions** | Secure, tamper-proof payments via blockchain. Points convert to crypto/cash. |  
+| 🤖 **AI-Powered Workouts** | Personalized daily tasks (steps, push-ups, squats) based on user fitness data. |  
+| 📱 **Smartwatch & OpenCV Tracking** | Google Fit tracks steps; OpenCV verifies reps (push-ups, planks). |  
+| 💰 **Milestone Refunds** | Earn points, unlock partial subscription refunds for consistency. |  
+| 🏆 **Community Challenges** | Join/lead groups, compete for rewards (vouchers, merch, gym coupons). |  
+
+## 🛠 Tech Stack  
+
+- **Frontend**: React.js, TailwindCSS  
+- **Backend**: Node.js, Express  
+- **Blockchain**: Solidity (Ethereum), Web3.js  
+- **AI/ML**: Python, OpenCV (pose estimation)  
+- **APIs**: Google Fit, Smartwatch SDKs  
+- **Database**: Firebase/MongoDB  
+
+## 🚀 Deployment  
+
+### **Prerequisites**  
+- Node.js ≥ v16  
+- Python ≥ 3.8  
+- MetaMask (for blockchain interactions)
 
 
-fitnessconnect/
-├── client/           # React frontend (Vite)
-├── server/           # Node.js backend
-├── flask_backend/    # Flask backend (Pose Detection & Recommendation)
-└── smart_contracts/  # Solidity Smart Contracts
-
-
----
-
-### 🔧 1. Run the React Frontend
-
-bash
-cd client
+### **Frontend (React)**  
+```bash
+git clone https://github.com/your-repo/wefit.git
+cd wefit/frontend
 npm install
-npm run dev
-
-
-💻 Frontend URL:  
-*http://localhost:5173/*
-
----
-
-### 🔧 2. Run the Node.js Backend
-
-bash
-cd server
+npm start  # Runs on http://localhost:5173
+```
+### **Backend (Node.js)**
+```bash
+cd backend
 npm install
-npm start
+npm run dev  # Runs on http://localhost:3000
+```
+### **ML model and server**
 
+1. **Set up virtual environment**:
+   - **Mac/Linux**:
+     ```bash
+     python3 -m venv wefit-env
+     source wefit-env/bin/activate
+     ```
+   - **Windows**:
+     ```bash
+     python -m venv wefit-env
+     .\wefit-env\Scripts\activate
+     ```
 
-This backend handles:
-- User authentication (JWT, OAuth)
-- Challenge creation and tracking
-- MongoDB data management
-- Smart contract interaction(Solidity)
+2. **Install dependencies**:
+   ```bash
+   pip install flask numpy opencv-python mediapipe flask_cors flask_socketio
 
----
-
-### 🔧 3. Run the Flask Backend (ML & Pose Detection)
-
-bash
-cd flask_backend
-pip install -r requirements.txt
-python app.py
-
-
-This Flask server powers:
-- Exercise posture detection (via Mediapipe)
-- Video analysis (OpenCV, TensorFlow)
-- Personalized recommendation engine (Hybrid ML model)
-
-🧠 Backend API URL:  
-*http://127.0.0.1:5000/*
-
----
-
-### 🌐 API Overview
-
-- *Frontend*: http://localhost:5173/
-- *Node.js Backend*: Runs on default Express port (e.g. 3000)
-- *Flask Backend*: http://127.0.0.1:5000/
-
-Make sure:
-- MongoDB is connected and configured.
-- MetaMask is connected to Sepolia Testnet.
-- Smart contracts are deployed via Remix IDE.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
+![WeFit Banner](frontend/src/assets/WeFit.png)    
+![WeFit Banner](frontend/src/assets/2.png)    
+![WeFit Banner](frontend/src/assets/3.png)    
+![WeFit Banner](frontend/src/assets/4.png)    
+![WeFit Banner](frontend/src/assets/5.png)    
+  
